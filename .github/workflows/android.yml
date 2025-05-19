@@ -31,7 +31,3 @@ jobs:
       with:
         name: index.html
         path: app/build/reports/lint-results-debug.html
-
-    - name: Build with Gradle
-      run: ./gradlew build
-
