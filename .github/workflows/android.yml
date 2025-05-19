@@ -72,9 +72,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Espresso Test
-        uses: reactivecircus/android-emulator-runner@v4
+        uses: reactivecircus/android-emulator-runner@v2.34.0
         with:
-          api-level: 29
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
           script: ./gradlew connectedCheck
 
       - name: Upload unit test report
