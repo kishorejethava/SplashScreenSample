@@ -1,10 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
     defaultConfig {
         namespace 'com.meltedcode.spashscreensample'
-//        applicationId "com.meltedcode.spashscreensample"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1
@@ -21,9 +20,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // ✅ AndroidX AppCompat
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+
+    // ✅ AndroidX ConstraintLayout (Updated version)
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // ✅ JUnit for unit testing
+    testImplementation 'junit:junit:4.13.2'
+
+    // ✅ AndroidX Test Runner
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+
+    // ✅ AndroidX Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
