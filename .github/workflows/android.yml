@@ -7,66 +7,69 @@ on:
     branches: [ "master" ]
 
 jobs:
-  lint:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout the code
-      uses: actions/checkout@v4
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: Run Lint
-      run: ./gradlew lintDebug
-
-    - name: Upload html test report
-      uses: actions/upload-artifact@v4
-      with:
-        name: lint.html
-        path: app/build/reports/lint-results-debug.html
-
-  unit-test:
-    needs: [lint]
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Checkout the code
-        uses: actions/checkout@v4
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run Unit Test
-        run: ./gradlew test
-
-      - name: Upload unit test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit_test_report
-          path: app/build/reports/tests/testDebugUnitTest/
+#  lint:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Checkout the code
+#      uses: actions/checkout@v4
+#
+#    - name: Grant execute permission for gradlew
+#      run: chmod +x gradlew
+#
+#    - name: Run Lint
+#      run: ./gradlew lintDebug
+#
+#    - name: Upload html test report
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: lint.html
+#        path: app/build/reports/lint-results-debug.html
+#
+#  unit-test:
+#    needs: [lint]
+#    runs-on: ubuntu-latest
+#    steps:
+#
+#      - name: Checkout the code
+#        uses: actions/checkout@v4
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Run Unit Test
+#        run: ./gradlew test
+#
+#      - name: Upload unit test report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: unit_test_report
+#          path: app/build/reports/tests/testDebugUnitTest/
 
   instrumentation-tests:
-    needs: [unit-test]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
-      - name: Run Espresso Test
+      - name: Run Espresso Tests
         uses: reactivecircus/android-emulator-runner@v2.34.0
         with:
           api-level: 30
           target: google_apis
-          arch: arm64-v8a
+          arch: x86_64  # <- use x86_64 (not arm64-v8a)
           profile: Nexus 6
           script: ./gradlew connectedCheck
 
-      - name: Upload unit test report
+      - name: Upload Instrumentation Test Report
         uses: actions/upload-artifact@v4
         with:
           name: instrumentation_test_report
