@@ -47,30 +47,36 @@ jobs:
 #          name: unit_test_report
 #          path: app/build/reports/tests/testDebugUnitTest/
 
-  instrumentation-tests:
-    runs-on: ubuntu-latest
-
+  androidTests:
+    runs-on: macos-14  # Ensures M1/M2 runner
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup JDK
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: 17
 
-      - name: Run Espresso Tests
-        uses: reactivecircus/android-emulator-runner@v2.34.0
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64  # <- use x86_64 (not arm64-v8a)
-          profile: Nexus 6
-          script: ./gradlew connectedCheck
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Upload Instrumentation Test Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: instrumentation_test_report
-          path: app/build/reports/androidTests/connected/
+      - name: Install ARM64 Emulator Image
+        run: |
+          sdkmanager --install "system-images;android-30;google_apis;arm64-v8a"
+          sdkmanager --install "platform-tools" "emulator"
+
+      - name: Create AVD
+        run: |
+          echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;arm64-v8a" --device "pixel"
+          echo "hw.cpu.ncore=4" >> ~/.android/avd/test.avd/config.ini
+
+      - name: Start Emulator
+        run: |
+          nohup emulator -avd test -no-snapshot -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim &
+          adb wait-for-device
+          adb shell getprop sys.boot_completed | grep -m 1 '1'
+
+      - name: Run Instrumentation Tests
+        run: ./gradlew connectedDebugAndroidTest
