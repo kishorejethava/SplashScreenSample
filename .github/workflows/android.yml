@@ -60,7 +60,7 @@ jobs:
           java-version: 17
 
       - name: SonarCloud Scan
-        run: ./gradlew app:sonarqube -Dsonar.login=${{ secrets.SONAR.TOKEN }}
+        run: ./gradlew app:sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
