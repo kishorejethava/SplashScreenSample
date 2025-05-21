@@ -28,6 +28,7 @@ dependencies {
 
     // ✅ AndroidX ConstraintLayout (Updated version)
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    testImplementation 'junit:junit:4.13.2'
 
     // ✅ JUnit for unit testing
     androidTestImplementation 'junit:junit:4.13.2'
