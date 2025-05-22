@@ -96,14 +96,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: splashscreen-sample.apk
-          path: app/build/outputs/apk/release/
+          path: app/build/outputs/apk/debug/
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Upload to Firebase App Distribution
         run: |
-          firebase appdistribution:distribute app/build/outputs/apk/release/splashscreen-sample.apk \
+          firebase appdistribution:distribute app/build/outputs/apk/debug/splashscreen-sample.apk \
             --app "1:449617540664:android:3cf92e58b54302a81098cd" \
             --groups "splashscreensample-testers-group" \
             --token "${{ secrets.FIREBASE_TOKEN }}"
