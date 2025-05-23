@@ -96,14 +96,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: splashscreen-sample-sit.apk
-          path: app/sit/debug/
+          path: app/build/outputs/apk/sit/debug/
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Upload to Firebase App Distribution
         run: |
-          firebase appdistribution:distribute app/sit/debug/app-sit-debug.apk \
+          firebase appdistribution:distribute app/build/outputs/apk/sit/debug/app-sit-debug.apk \
             --app ${{ secrets.FIREBASE_APP_ID_SIT }}\
             --token "${{ secrets.FIREBASE_TOKEN }}"
 
