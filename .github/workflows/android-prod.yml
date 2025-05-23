@@ -83,8 +83,8 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-            name: splashscreen-sample-prod.apk
-            path: app/build/outputs/apk/prod/debug/app-prod-debug.apk
+          name: splashscreen-sample-prod.apk
+          path: app/build/outputs/apk/prod/debug/app-prod-debug.apk
 
   deploy:
     name: Deploy to Firebase
@@ -95,7 +95,7 @@ jobs:
       - name: Download APK Artifact
         uses: actions/download-artifact@v4
         with:
-          name: splashscreen-sample.apk
+          name: splashscreen-sample-prod.apk
           path: app/prod/debug/
 
       - name: Install Firebase CLI

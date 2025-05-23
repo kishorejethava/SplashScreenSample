@@ -83,8 +83,8 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-            name: splashscreen-sample.apk
-            path: app/dev/debug/app-dev-debug.apk
+          name: splashscreen-sample-dev.apk
+          path: app/dev/debug/app-dev-debug.apk
 
   deploy:
     name: Deploy to Firebase
