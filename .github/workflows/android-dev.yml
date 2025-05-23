@@ -105,6 +105,7 @@ jobs:
         run: |
           firebase appdistribution:distribute app/dev/debug/app-dev-debug.apk \
             --app ${{ secrets.FIREBASE_APP_ID_DEV }} \
+#            --groups "splashscreensample-testers-group" \
             --token "${{ secrets.FIREBASE_TOKEN }}"
 
 
