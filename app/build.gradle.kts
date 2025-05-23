@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.sonarqube")
-    id("com.google.gms.google-services")
+//    id("com.google.gms.google-services")
 }
 
 android {
@@ -17,6 +17,27 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions += "version"
+
+    productFlavors {
+        create("dev") {
+            dimension = "version"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            resValue("string", "app_name", "SplashScreenSample-Dev")
+        }
+        create("sit") {
+            dimension = "version"
+            applicationIdSuffix = ".sit"
+            versionNameSuffix = "-sit"
+            resValue("string", "app_name", "SplashScreenSample-Sit")
+        }
+        create("prod") {
+            dimension = "version"
+            resValue("string", "app_name", "SplashScreenSample")
+        }
     }
 
     buildTypes {
