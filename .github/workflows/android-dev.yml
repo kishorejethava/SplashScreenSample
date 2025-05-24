@@ -96,7 +96,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: splashscreen-sample-dev.apk
-          path: app/dev/debug/
+          path: app/build/outputs/apk/dev/debug/
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
