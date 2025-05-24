@@ -104,7 +104,6 @@ jobs:
       - name: Upload to Firebase App Distribution
         run: |
           firebase appdistribution:distribute app/build/outputs/apk/prod/debug/app-prod-debug.apk \
-            --app ${{ secrets.FIREBASE_APP_ID_PROD }} \
-#            --groups "splashscreensample-testers-group"
+            --app ${{ secrets.FIREBASE_APP_ID_PROD }}\
             --token "${{ secrets.FIREBASE_TOKEN }}"
 
