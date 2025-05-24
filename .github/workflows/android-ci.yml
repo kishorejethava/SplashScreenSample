@@ -1,4 +1,4 @@
-name: SplashScreenSample-Prod CI-CD
+name: SplashScreenSample CI
 
 on:
   push:
@@ -77,33 +77,13 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Build ProdDebug APK
-        run: ./gradlew assembleProdDebug --stacktrace
+      - name: Build DevDebug APK
+        run: ./gradlew assembleDevDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: splashscreen-sample-prod.apk
-          path: app/build/outputs/apk/prod/debug/app-prod-debug.apk
+          name: splashscreen-sample-dev.apk
+          path: app/build/outputs/apk/dev/debug/app-dev-debug.apk
 
-  deploy:
-    name: Deploy to Firebase
-    needs: package
-    runs-on: macos-14
-
-    steps:
-      - name: Download APK Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: splashscreen-sample-prod.apk
-          path: app/build/outputs/apk/prod/debug/
-
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      - name: Upload to Firebase App Distribution
-        run: |
-          firebase appdistribution:distribute app/build/outputs/apk/prod/debug/app-prod-debug.apk \
-            --app ${{ secrets.FIREBASE_APP_ID_PROD }}\
-            --token "${{ secrets.FIREBASE_TOKEN }}"
 
