@@ -63,7 +63,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDevDebugUnitTest
 
       - name: Generate Jacoco Report
         run: ./gradlew jacocoTestReport
