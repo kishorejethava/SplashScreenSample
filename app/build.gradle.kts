@@ -95,7 +95,7 @@ dependencies {
 }
 
 tasks.register<JacocoReport>("jacocoTestReport") {
-    dependsOn("test")
+    dependsOn("testDevDebugUnitTest")
 
     reports {
         xml.required.set(true)
@@ -124,7 +124,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
     executionData.setFrom(fileTree(buildDir) {
         include(
-            "jacoco/test.exec",
+            "jacoco/testDevDebugUnitTest.exec",
         )
     })
 
