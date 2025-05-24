@@ -23,7 +23,7 @@ jobs:
           java-version: 17
 
       - name: Build APK
-        uses: ./gradlew assembleDevDebug
+        run: ./gradlew assembleDevDebug
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
