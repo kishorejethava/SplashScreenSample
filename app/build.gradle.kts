@@ -2,11 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.sonarqube")
-    id("jacoco")
-}
-
-jacoco {
-    toolVersion = "0.8.10"
 }
 
 android {
@@ -94,44 +89,46 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 
-tasks.register<JacocoReport>("jacocoTestReport") {
-    dependsOn("testDevDebugUnitTest")
+apply(from = "../jacoco.gradle")
 
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-    }
-
-    val fileFilter = listOf(
-        "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
-        "**/*Test*.*" // <- Optional: exclude test classes
-    )
-    val debugTree = fileTree("${buildDir}/intermediates/javac/devDebug") {
-        exclude(fileFilter)
-        include("**/MainViewModel.class") // <- Focus only on this
-    }
-
-    val kotlinDebugTree = fileTree("${buildDir}/tmp/kotlin-classes/devDebug") {
-        exclude(fileFilter)
-    }
-
-    classDirectories.setFrom(files(debugTree, kotlinDebugTree))
-
-    sourceDirectories.setFrom(files(
-        "src/main/java",
-        "src/main/kotlin"
-    ))
-
-    executionData.setFrom(fileTree(buildDir) {
-        include(
-            "jacoco/testDevDebugUnitTest.exec",
-        )
-    })
-
-    // Avoid error when no coverage data is generated
-    doFirst {
-        executionData.setFrom(
-            executionData.filter { it.exists() }
-        )
-    }
-}
+//tasks.register<JacocoReport>("jacocoTestReport") {
+//    dependsOn("testDevDebugUnitTest")
+//
+//    reports {
+//        xml.required.set(true)
+//        html.required.set(true)
+//    }
+//
+//    val fileFilter = listOf(
+//        "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
+//        "**/*Test*.*" // <- Optional: exclude test classes
+//    )
+//    val debugTree = fileTree("${buildDir}/intermediates/javac/devDebug") {
+//        exclude(fileFilter)
+//        include("**/MainViewModel.class") // <- Focus only on this
+//    }
+//
+//    val kotlinDebugTree = fileTree("${buildDir}/tmp/kotlin-classes/devDebug") {
+//        exclude(fileFilter)
+//    }
+//
+//    classDirectories.setFrom(files(debugTree, kotlinDebugTree))
+//
+//    sourceDirectories.setFrom(files(
+//        "src/main/java",
+//        "src/main/kotlin"
+//    ))
+//
+//    executionData.setFrom(fileTree(buildDir) {
+//        include(
+//            "jacoco/testDevDebugUnitTest.exec",
+//        )
+//    })
+//
+//    // Avoid error when no coverage data is generated
+//    doFirst {
+//        executionData.setFrom(
+//            executionData.filter { it.exists() }
+//        )
+//    }
+//}
