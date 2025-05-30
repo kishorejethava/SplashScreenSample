@@ -7,44 +7,44 @@ on:
     branches: [ "master" ]
 
 jobs:
-#  lint:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#    - name: Checkout the code
-#      uses: actions/checkout@v4
-#
-#    - name: Grant execute permission for gradlew
-#      run: chmod +x gradlew
-#
-#    - name: Run Lint
-#      run: ./gradlew lintDevDebug
-#
-#    - name: Upload html test report
-#      uses: actions/upload-artifact@v4
-#      with:
-#        name: lint.html
-#        path: app/build/reports/lint-results-debug.html
-#
-#  unit-test:
-#    needs: [lint]
-#    runs-on: ubuntu-latest
-#    steps:
-#
-#      - name: Checkout the code
-#        uses: actions/checkout@v4
-#
-#      - name: Grant execute permission for gradlew
-#        run: chmod +x gradlew
-#
-#      - name: Run Unit Test
-#        run: ./gradlew test
-#
-#      - name: Upload unit test report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: unit_test_report
-#          path: app/build/reports/tests/testDevDebugUnitTest/
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v4
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Run Lint
+      run: ./gradlew lintDevDebug
+
+    - name: Upload html test report
+      uses: actions/upload-artifact@v4
+      with:
+        name: lint.html
+        path: app/build/reports/lint-results-debug.html
+
+  unit-test:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Unit Test
+        run: ./gradlew test
+
+      - name: Upload unit test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDevDebugUnitTest/
 
   code-coverage:
 #    needs: [unit-test]

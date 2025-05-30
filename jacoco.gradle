@@ -22,7 +22,7 @@ tasks.register("jacocoTestReport", JacocoReport) {
     ]
 
     def debugTree = fileTree(
-            dir: "$buildDir/tmp/kotlin-classes/devDebug",
+            dir: "${getLayout().getBuildDirectory()}/tmp/kotlin-classes/devDebug",
             excludes: fileFilter
     )
 
@@ -32,7 +32,7 @@ tasks.register("jacocoTestReport", JacocoReport) {
     ]))
 
     classDirectories.setFrom(files([debugTree]))
-    executionData.setFrom(fileTree(buildDir).include(
+    executionData.setFrom(fileTree(getLayout().getBuildDirectory()).include(
             "jacoco/testDevDebugUnitTest.exec"
     ))
 }
