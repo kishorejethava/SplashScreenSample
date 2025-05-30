@@ -46,10 +46,6 @@ android {
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
             )
-
-            getByName("debug") {
-                isTestCoverageEnabled = true
-            }
         }
     }
 
@@ -90,45 +86,3 @@ dependencies {
 }
 
 apply(from = "../jacoco.gradle")
-
-//tasks.register<JacocoReport>("jacocoTestReport") {
-//    dependsOn("testDevDebugUnitTest")
-//
-//    reports {
-//        xml.required.set(true)
-//        html.required.set(true)
-//    }
-//
-//    val fileFilter = listOf(
-//        "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
-//        "**/*Test*.*" // <- Optional: exclude test classes
-//    )
-//    val debugTree = fileTree("${buildDir}/intermediates/javac/devDebug") {
-//        exclude(fileFilter)
-//        include("**/MainViewModel.class") // <- Focus only on this
-//    }
-//
-//    val kotlinDebugTree = fileTree("${buildDir}/tmp/kotlin-classes/devDebug") {
-//        exclude(fileFilter)
-//    }
-//
-//    classDirectories.setFrom(files(debugTree, kotlinDebugTree))
-//
-//    sourceDirectories.setFrom(files(
-//        "src/main/java",
-//        "src/main/kotlin"
-//    ))
-//
-//    executionData.setFrom(fileTree(buildDir) {
-//        include(
-//            "jacoco/testDevDebugUnitTest.exec",
-//        )
-//    })
-//
-//    // Avoid error when no coverage data is generated
-//    doFirst {
-//        executionData.setFrom(
-//            executionData.filter { it.exists() }
-//        )
-//    }
-//}
